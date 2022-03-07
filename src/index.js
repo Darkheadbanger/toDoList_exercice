@@ -15,21 +15,15 @@ const element = [];
 const todos = [
   {
     text: "Je suis un todo",
-    done: true,
-  },
-  {
-    text: "Je dois faire le JavaScript demain",
-    done: false,
-  },
-  {
-    text: "Je dois faire le HTML/CSS demain",
     done: false,
   },
 ];
 
 window.onload = function () {
-  if (JSON.parse(localStorage.getItem("todo-element")) !== null) {
-    element.push(JSON.parse(localStorage.getItem("todo-element")));
+  if (JSON.parse(localStorage.getItem("todo")) !== null) {
+    todos.push(JSON.parse(localStorage.getItem("todo-todos")));
+    // J'affiche le todo avant de telecjarger la page, normalement il persiste mais ca ne fonctionne pas
+    displayTodo();
   }
 };
 
@@ -47,11 +41,11 @@ form.addEventListener("submit", (event) => {
       input.value = "";
     }
     // Maintenant, on doit sauvegarder tous cela dans le localstorage pour que la page mémorise les noms ajoutés
-    // Si le localstorage est null alors on retourne element null si non element non null
-    if (JSON.parse(localStorage.getItem("todo-element")) === null) {
-      localStorage.setItem("todo-element", JSON.stringify(element));
+    // Si le localstorage est null alors on retourne todos null si non todos non null
+    if (JSON.parse(localStorage.getItem("todo-todos")) === null) {
+      localStorage.setItem("todo-todos", JSON.stringify(todos));
     } else {
-      localStorage.setItem("todo-element", JSON.stringify(element));
+      localStorage.setItem("todo-todos", JSON.stringify(todos));
     }
     displayTodo();
   }
@@ -63,7 +57,7 @@ const displayTodo = () => {
   const todosNode = todos.map((todo, index) => {
     console.log("todo", todo);
     console.log("index", index);
-    // On retourne la function createToDoElement qui comporte la création de todo list en function de resultat que la boucle map donne
+    // On retourne la function createToDotodos qui comporte la création de todo list en function de resultat que la boucle map donne
     // C'est à dire, le résultat itéré du tableau todos c'est à dire les deux objets
     return createToDoElement(todo, index);
   });
