@@ -39,7 +39,7 @@ form.addEventListener("submit", (event) => {
     return alert("Bonjour, veuillez remplir le champ!");
   } else {
     // Le push ne fonctionne pas
-    element.push({
+    todos.push({
       text: input.value.trim(),
       done: false,
     });
