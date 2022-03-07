@@ -38,12 +38,11 @@ form.addEventListener("submit", (event) => {
   if (input.value.trim() === "") {
     return alert("Bonjour, veuillez remplir le champ!");
   } else {
-    console.log(
-      element.push({
-        text: input.value.trim(),
-        done: false,
-      })
-    );
+    // Le push ne fonctionne pas
+    element.push({
+      text: input.value.trim(),
+      done: false,
+    });
     if (input.value.trim() !== "") {
       input.value = "";
     }
@@ -54,6 +53,7 @@ form.addEventListener("submit", (event) => {
     } else {
       localStorage.setItem("todo-element", JSON.stringify(element));
     }
+    displayTodo();
   }
 });
 
