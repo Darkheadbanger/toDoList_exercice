@@ -22,7 +22,7 @@ let todos = [
   },
 ];
 
-if (localStorage.getItem("todo-element") !== null) {
+if (JSON.parse(localStorage.getItem("todo-element")) !== null) {
   todos = JSON.parse(localStorage.getItem("todo-element"));
 }
 
