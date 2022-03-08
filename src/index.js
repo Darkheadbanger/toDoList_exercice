@@ -10,26 +10,25 @@ const ul = document.querySelector("ul");
 const form = document.querySelector("form");
 const input = document.querySelector("input");
 
-const element = [];
 // On simule la base de donées en créant une variable qui comporte des objets dans un tableau
-const todos = [
+let todos = [
   {
     text: "Je suis un todo",
     done: false,
   },
+  {
+    text: "Demain, je vais faire le JavaScript",
+    done: false,
+  },
 ];
 
-window.onload = function () {
-  if (JSON.parse(localStorage.getItem("todo")) !== null) {
-    todos.push(JSON.parse(localStorage.getItem("todo-todos")));
-    // J'affiche le todo avant de telecjarger la page, normalement il persiste mais ca ne fonctionne pas
-    displayTodo();
-  }
-};
+if (localStorage.getItem("todo-element") !== null) {
+  todos = JSON.parse(localStorage.getItem("todo-element"));
+}
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-  if (input.value.trim() === "") {
+  if (input.value === "") {
     return alert("Bonjour, veuillez remplir le champ!");
   } else {
     // Le push ne fonctionne pas
@@ -37,16 +36,18 @@ form.addEventListener("submit", (event) => {
       text: input.value.trim(),
       done: false,
     });
-    if (input.value.trim() !== "") {
-      input.value = "";
-    }
+
+    input.value = "";
+
     // Maintenant, on doit sauvegarder tous cela dans le localstorage pour que la page mémorise les noms ajoutés
     // Si le localstorage est null alors on retourne todos null si non todos non null
-    if (JSON.parse(localStorage.getItem("todo-todos")) === null) {
-      localStorage.setItem("todo-todos", JSON.stringify(todos));
-    } else {
-      localStorage.setItem("todo-todos", JSON.stringify(todos));
-    }
+    // if (JSON.parse(localStorage.getItem("todo-todos")) === null) {
+    //   localStorage.setItem("todo-todos", JSON.stringify(todos));
+    // } else {
+    //   localStorage.setItem("todo-todos", JSON.stringify(todos));
+    // }
+    localStorage.setItem("todo-element", JSON.stringify(todos));
+
     displayTodo();
   }
 });
@@ -55,26 +56,16 @@ form.addEventListener("submit", (event) => {
 const displayTodo = () => {
   // On recuprer ce tableau, et on affiche sur le HTML
   const todosNode = todos.map((todo, index) => {
-    console.log("todo", todo);
-    console.log("index", index);
-    // On retourne la function createToDotodos qui comporte la création de todo list en function de resultat que la boucle map donne
-    // C'est à dire, le résultat itéré du tableau todos c'est à dire les deux objets
     return createToDoElement(todo, index);
   });
-  // On prends la variable ul et on ajoute une chaine de caractères vide car on commence toujours avec un string vide
+
   ul.innerHTML = "";
-  // Ensuite, on ajoute le résultat de la liste todolist qui a été itéré avec la boucle map (qui modifie ses element) dans la page
   ul.append(...todosNode);
 };
+
 // On crée une fonction qui permet de créer les élements todo
 const createToDoElement = (todo) => {
-  // Creation de la variable li qui permet de récuperer la liste li
   const li = document.createElement("li");
-  // On ajoute via la propriété innerHTML le html complet de ce qu'on veut afficher
-  // Donc, le texte dans le tableau
-  // todo.done est pour acceder le tableau de la variable todos qui a été itéré, pour ca il faut utiliser le paramètre du function
-  // Donc si todo.done est true alors on met done qui représente le style css si non rien dans le style
-  // todo.text permet de récuperer le text et d'ajouter dans le paragraphe
   li.innerHTML = `
   <span class="todo ${todo.done ? "done" : ""}"></span>
   <p>${
