@@ -132,16 +132,14 @@ const editToDo = (index, input) => {
   const value = input.value;
   todos[index].text = value;
   todos[index].editMode = false;
+  modifyDataFromLocalStorage();
   displayTodo();
 };
 
 const localSaved = () => {
   console.log("ici todo :", todos);
-  if (JSON.parse(localStorage.getItem("todo-element")) === null) {
-    localStorage.setItem("todo-element", JSON.stringify(todos));
-  } else {
-    localStorage.setItem("todo-element", JSON.stringify(todos));
-  }
+  JSON.parse(localStorage.getItem("todo-element")) || [];
+  localStorage.setItem("todo-element", JSON.stringify(todos));
 };
 
 const retrieveLocalStorage = () => {
@@ -153,8 +151,14 @@ const retrieveLocalStorage = () => {
 };
 const deleteDataFromLocalStorage = (index) => {
   console.log("index ici :", index);
-  const store = JSON.parse(localStorage.getItem("todo-element")) || [];
+  let store = JSON.parse(localStorage.getItem("todo-element")) || [];
   store.splice(index, 1);
+  localStorage.setItem("todo-element", JSON.stringify(todos));
+  displayTodo();
+};
+
+const modifyDataFromLocalStorage = (index) => {
+  JSON.parse(localStorage.getItem("todo-element")) || [];
   localStorage.setItem("todo-element", JSON.stringify(todos));
   displayTodo();
 };
