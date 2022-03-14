@@ -57,6 +57,7 @@ li {
   display: flex;
   align-items: center;
   padding: 10px;
+  border-radius: 20px;
 }
 
 li p {
@@ -73,4 +74,37 @@ li .todo {
 
 li .todo.done {
   background: #333;
+}
+
+li:hover {
+  background-color: green !important;
+}
+
+.danger {
+  background-color: red;
+  border-radius: 20px;
+  transition: all 800ms;
+}
+
+.danger:hover {
+  filter: brightness(0.75);
+}
+
+.modification {
+  background-color: rgb(74, 74, 196);
+  border-radius: 20px;
+  transition: all 800ms;
+}
+
+.modification:hover {
+  filter: brightness(0.75);
+}
+
+button {
+  background-color: #4CAF50;
+  transition: all 800ms;
+}
+
+button:hover {
+  filter: brightness(0.75);
 }
