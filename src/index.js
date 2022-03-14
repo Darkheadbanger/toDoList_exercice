@@ -18,14 +18,25 @@ if (document.readyState === "loading") {
       },
     ];
 
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
-      const value = input.value;
-      if (value) {
-        input.value = "";
-      }
-      addToDo(value);
-    });
+    const addWork = () => {
+      form.addEventListener("dblclick", (event) => {
+        event.preventDefault();
+        const value = input.value;
+        if (value) {
+          input.value = "";
+        }
+        addToDo(value);
+      });
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const value = input.value;
+        if (value) {
+          input.value = "";
+        }
+        addToDo(value);
+      });
+    };
 
     const escapeFromInput = () => {
       input.addEventListener("keydown", (e) => {
@@ -219,7 +230,7 @@ if (document.readyState === "loading") {
       localStorage.setItem("todo-element", JSON.stringify(todos));
       displayTodo();
     };
-
+    addWork();
     displayTodo();
     // Il faut toujours mettre le localStorage en global (pas dans une fonction) pour le faire fonctionner
     retrieveLocalStorage();
