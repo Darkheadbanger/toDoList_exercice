@@ -1,6 +1,6 @@
 * body {
   box-sizing: border-box;
-  background-color: rgb(252, 196, 106);
+  background: linear-gradient(#f38353, #fd2525);
 }
 
 body {
@@ -24,7 +24,7 @@ p {
 
 .title {
   font-size: xx-large;
-  color: #ff4d00;
+  color: white;
   text-decoration: overline underline;
 }
 
