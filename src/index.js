@@ -138,8 +138,10 @@ if (document.readyState === "loading") {
       input.type = "text";
       input.value = todo.text;
       const saveButton = document.createElement("button");
+      saveButton.classList.add("modification");
       saveButton.innerHTML = "Save";
-      const cancelButton = document.createElement("Button");
+      const cancelButton = document.createElement("button");
+      cancelButton.classList.add("danger");
       cancelButton.innerHTML = "Cancel";
       cancelButton.addEventListener("click", (event) => {
         event.stopPropagation();
@@ -153,7 +155,7 @@ if (document.readyState === "loading") {
           return;
         }
       });
-      li.append(input, cancelButton, saveButton);
+      li.append(input, saveButton, cancelButton);
       return li;
     };
 

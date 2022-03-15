@@ -1,5 +1,6 @@
 * body {
   box-sizing: border-box;
+  background-color: rgb(252, 196, 106);
 }
 
 body {
@@ -15,6 +16,19 @@ p {
 }
 
 .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  font-size: xx-large;
+  color: #ff4d00;
+  text-decoration: overline underline;
+}
+
+.container-form {
   width: 500px;
   border: 1px solid #eee;
   border-radius: 3px;
@@ -34,6 +48,35 @@ button {
   border-radius: 5px;
   cursor: pointer;
   margin: 0 3px;
+  transition: all 800ms;
+}
+
+.button {
+  background-color: #fb7b43;
+}
+
+.button:hover {
+  filter: brightness(0.75);
+}
+
+.danger {
+  background-color: red;
+  border-radius: 20px;
+  transition: all 800ms;
+}
+
+.danger:hover {
+  filter: brightness(0.75);
+}
+
+.modification {
+  background-color: #7474da;
+  border-radius: 20px;
+  transition: all 800ms;
+}
+
+.modification:hover {
+  filter: brightness(0.75);
 }
 
 input {
@@ -73,38 +116,9 @@ li .todo {
 }
 
 li .todo.done {
-  background: #333;
+  background: green;
 }
 
 li:hover {
-  background-color: green !important;
-}
-
-.danger {
-  background-color: red;
-  border-radius: 20px;
-  transition: all 800ms;
-}
-
-.danger:hover {
-  filter: brightness(0.75);
-}
-
-.modification {
-  background-color: rgb(74, 74, 196);
-  border-radius: 20px;
-  transition: all 800ms;
-}
-
-.modification:hover {
-  filter: brightness(0.75);
-}
-
-button {
-  background-color: #4CAF50;
-  transition: all 800ms;
-}
-
-button:hover {
-  filter: brightness(0.75);
+  background-color: #fb7b43 !important;
 }
