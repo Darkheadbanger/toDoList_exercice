@@ -1,5 +1,7 @@
 import "./style.css";
-import "./asynchrone";
+// import "./asynchrone";
+// import "./date";
+// import "./objet";
 // On récupère le ul pour pouvoir afficheer dans la liste
 const ul = document.querySelector("ul");
 const form = document.querySelector("form");
@@ -25,7 +27,7 @@ if (document.readyState === "loading") {
         if (value) {
           input.value = "";
         }
-        addToDo(value);
+        addToDo(value, todos);
       });
 
       form.addEventListener("submit", (event) => {
@@ -34,7 +36,7 @@ if (document.readyState === "loading") {
         if (value) {
           input.value = "";
         }
-        addToDo(value);
+        addToDo(value, todos);
       });
     };
 
@@ -100,6 +102,10 @@ if (document.readyState === "loading") {
           return;
         }
       });
+
+      // Cette fonctionne sert pour barré les tâches effectués
+      finishedTodo(todo, p);
+
       editButton.addEventListener("click", (event) => {
         event.stopPropagation();
         toggleEditMode(index);
@@ -124,9 +130,6 @@ if (document.readyState === "loading") {
         event.preventDefault();
         toggleTodo(todo);
       });
-
-      // Cette fonctionne sert pour barré les tâches effectués
-      finishedTodo(todo, p);
 
       // On va retourner li qui corresponds au codeHTML complet qu'on va utiliser pour afficher plus haut
       return li;
@@ -159,14 +162,11 @@ if (document.readyState === "loading") {
       return li;
     };
 
-    const addToDo = (text) => {
-      console.log(text);
+    const addToDo = (text, todos) => {
       if (!text) {
         return alert("Veuillez remplir le champ!");
       } else {
-        // Pour empecher d'ajouter la même tâches
-        // Ajouter todo et index itéré dans le paramètre, ensuite comparer le bon id avec le bon message et dire si
-        // Le message est le même, on ne peut pas ajouter me même tâche
+        console.log("todo :", todos);
         todos.push({
           text,
           done: false,
@@ -193,10 +193,8 @@ if (document.readyState === "loading") {
       // todo.done
       //   ? (p.style.textDecoration = "line-through") ? todo.done
       //   : (p.style.textDecoration = "none");
-
       if (todo.done) {
-        p.style.textDecoration = "line-through";
-        p.style.textDecorationColor = "red";
+        p.style.textDecoration = "line-through solid 1.5px green";
       } else {
         p.style.textDecoration = "none";
       }
