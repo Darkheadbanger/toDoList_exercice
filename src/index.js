@@ -1,7 +1,7 @@
 import "./style.css";
-// import "./asynchrone";
-// import "./date";
-// import "./objet";
+import "./asynchrone";
+import "./date";
+import "./objet";
 // On récupère le ul pour pouvoir afficheer dans la liste
 const ul = document.querySelector("ul");
 const form = document.querySelector("form");
@@ -163,18 +163,24 @@ if (document.readyState === "loading") {
     };
 
     const addToDo = (text, todos) => {
+      // Voir, comment acceder le text du tableau todos
+      console.log("todo :", todos);
+
       if (!text) {
         return alert("Veuillez remplir le champ!");
       } else {
-        console.log("todo :", todos);
-        todos.push({
-          text,
-          done: false,
+        todos.map((todo, index) => {
+          if (text) {
+            todos.push({
+              text,
+              done: false,
+            });
+          }
         });
-
-        dataSetToLocalStorage();
-        displayTodo();
       }
+
+      dataSetToLocalStorage();
+      displayTodo();
     };
 
     const deleteToDo = (index) => {
