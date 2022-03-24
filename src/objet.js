@@ -26,15 +26,16 @@ const utilisateurs = {
 console.log(utilisateurs.nomComplet);
 
 // Un mutateur se définit avec un mot set
+const utilisateur = {
+  prenom: "",
+  nom: "",
 
-// const obj2 = {
-//   //   set unSetter() {},
-// };
-// const utilisateurs2 = {
-//   prenom: "",
-//   nom: "",
+  set nomComplet(val) {
+    [this.prenom, this.nom] = val.split(" ");
+  },
+};
 
-//   set nomComplet() {
-//     return `${this.prenom} ${this.nom}`;
-//   },
-// };
+utilisateur.nomComplet = "Jean Dupont";
+
+console.log(utilisateur.prenom); // Jean
+console.log(utilisateur.nom); // Dupont

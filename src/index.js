@@ -2,6 +2,7 @@ import "./style.css";
 import "./asynchrone";
 import "./date";
 import "./objet";
+import "./poo";
 // On récupère le ul pour pouvoir afficheer dans la liste
 const ul = document.querySelector("ul");
 const form = document.querySelector("form");
@@ -27,7 +28,7 @@ if (document.readyState === "loading") {
         if (value) {
           input.value = "";
         }
-        addToDo(value, todos);
+        addToDo(value);
       });
 
       form.addEventListener("submit", (event) => {
@@ -36,7 +37,8 @@ if (document.readyState === "loading") {
         if (value) {
           input.value = "";
         }
-        addToDo(value, todos);
+        console.log("array :", todos);
+        addToDo(value);
       });
     };
 
@@ -162,21 +164,28 @@ if (document.readyState === "loading") {
       return li;
     };
 
-    const addToDo = (text, todos) => {
-      // Voir, comment acceder le text du tableau todos
-      console.log("todo :", todos);
+    const avoidDuplicateToDo = (text) => {
+      const includesTodos = todos.findIndex((todo) => todo.text === text);
 
+      // const includesTodos = todos.indexOf(text) === -1; // todos.includes(text) fonctionne mais pas supporté par internet explorer
+      // -1 veut dire si "si la valeur n'est pas inclu dans le tableau"
+      if (includesTodos === -1) {
+        // sans === -1, il va chercher le premier index, le fait de
+        // mettre === -1 index, il va voir si partout dans le tableau si aucune des valeurs n'est inclut
+        todos.push({
+          text,
+          done: false,
+        });
+      } else {
+        alert("Vous ne pouvez pas ajouter le même activiter!");
+      }
+    };
+
+    const addToDo = (text) => {
       if (!text) {
         return alert("Veuillez remplir le champ!");
       } else {
-        todos.map((todo, index) => {
-          if (text) {
-            todos.push({
-              text,
-              done: false,
-            });
-          }
-        });
+        avoidDuplicateToDo(text, todos);
       }
 
       dataSetToLocalStorage();
