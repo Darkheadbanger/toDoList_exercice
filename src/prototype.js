@@ -3,6 +3,8 @@
 // Les chaines de prototype, la modification dynamique du prototype et l'utilisation de for...in
 // avec les prototypes
 
+
+
 // Patern constructeur
 
 // Test

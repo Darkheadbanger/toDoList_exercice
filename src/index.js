@@ -28,7 +28,7 @@ if (document.readyState === "loading") {
         if (value) {
           input.value = "";
         }
-        addToDo(value);
+        addToDo(value, todos);
       });
 
       form.addEventListener("submit", (event) => {
@@ -38,7 +38,7 @@ if (document.readyState === "loading") {
           input.value = "";
         }
         console.log("array :", todos);
-        addToDo(value);
+        addToDo(value, todos);
       });
     };
 
@@ -164,14 +164,14 @@ if (document.readyState === "loading") {
       return li;
     };
 
-    const avoidDuplicateToDo = (text) => {
-      const includesTodos = todos.findIndex((todo) => todo.text === text);
-
-      // const includesTodos = todos.indexOf(text) === -1; // todos.includes(text) fonctionne mais pas supporté par internet explorer
-      // -1 veut dire si "si la valeur n'est pas inclu dans le tableau"
+    const avoidDuplicateToDo = (text, todos) => {
+      // Demander pourquoi si on met entrecote {} ne fonctionne pas
+      const findTheSameText = (todo) => todo.text === text;
+      const includesTodos = todos.findIndex(findTheSameText);
+      // Demander pourquoi const includesTodos = todos.includes(text) ou todos.indexOf(text) === -1 fonctionne mais si on met un seul string, ca me retourne l'alert
       if (includesTodos === -1) {
         // sans === -1, il va chercher le premier index, le fait de
-        // mettre === -1 index, il va voir si partout dans le tableau si aucune des valeurs n'est inclut
+        // -1 veut dire si "si la valeur n'est pas inclu dans le tableau"
         todos.push({
           text,
           done: false,
@@ -181,7 +181,7 @@ if (document.readyState === "loading") {
       }
     };
 
-    const addToDo = (text) => {
+    const addToDo = (text, todos) => {
       if (!text) {
         return alert("Veuillez remplir le champ!");
       } else {
