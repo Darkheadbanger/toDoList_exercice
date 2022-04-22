@@ -62,8 +62,6 @@ const musicien = [
 const style = {
   genre: "Heavy Metal",
 };
-// Regader sur l'internet la classe Objet en JS pour voir les méthodes, exemples:*
-// entries, values, keys...
 
 // 30/03/2022
 
@@ -198,7 +196,261 @@ Animal.mange(); // Class Animal
 let mange = Animal.mange;
 mange(); // Undefined
 
+// Si on décrit le code avec des fonctions traditionelles plutôt qu'avec des classes et qu'on utilise le mode non-strict, l'autodétermination de "this" sera
+// faite en fonction du contexte dans lequel la fonction a été appelée. Si la valeur initiale est "undefined", "this" corespondra à l'objet global. Par exemple:
+function Animaux() {}
 
+Animaux.prototype.crie = function () {
+  return this;
+};
+
+Animaux.mange = function () {
+  return this;
+};
+
+let obje = new Animaux();
+let criee = obje.crie;
+criee(); // l'objet global
+
+let mangee = Animaux.mange;
+mangee(); // l'objet global
+// Propriété des instances
+// Les propriétés des instances doivent être définies dans les méthodes de la classe
+
+class Rectangle3 {
+  constructor(hauteur, largeur) {
+    this.hauteur = hauteur;
+    this.largeur = largeur;
+  }
+}
+
+// Les propriétés statiques ou les donées relatives au prototype doivent être définies en dehrs de la déclaration comportant le corpsn de la classe
+const p = (Rectangle3.largeurStatique = 20);
+const pi = (Rectangle3.prototype.largeurProto = 25);
+console.log(p);
+console.log(pi);
+
+// Declaratons de champs !!! Experimentale
+// Déclarations de champs publics
+
+// En tuilisant la syntaxe pour la déclarations des champs, on peut réécrire l'exemple précédent de la facçon suivante:
+
+class Rectangle4 {
+  hauteur = 0; // On déclare les champs hauteur et largeur avec une valeur par défaut
+  largeur;
+  constructor(hauteur, largeur) {
+    this.hauteur = hauteur;
+    this.largeur = largeur;
+  }
+}
+
+// En déclarant les champs en préalable, il est plus facile de comprendre la classe dans son ensemble. De plus, on s'assure que les champs soient toujours présents.
+// Comme on peut le voir dans cet exemple, les champs peuvent éventuellement être céclarés avec une valeur par défaut
+
+// Déclartions de champs privés
+// En utilisant des champs privés, on peut revoir la définition de l facon suivante
+class Rectangle5 {
+  #hauteur = 0;
+  #largeur;
+  constructor(hauteur, largeur) {
+    this.#hauteur = hauteur;
+    this.#largeur = largeur;
+  }
+}
+
+// Si on utilise les chams privés hors de la classe, cela génèrera une erreur. Ces champs ne peuvent pas être lu ou modifiés que depuis le corps de la classe. En évitant d'exposer des éléments
+// à l'extérieur, on s'assure qe les portions de code qui consoment cette celasse n'utilis pas ses détails internes et on peut alors maintenir
+// La classe dans son ensemble et modfier les détails internes si besoin
+
+// Les chmpas privés doivent nécessairement être déclarés en premier dans les déclarations de champ
+
+// Créer une sous classe avec extends
+// Le mot-clé "extends", utilisé dans les déclarations ou les expressions de classes, permet de créer une classe qui hérite d'une autre classe (on parle aussi de "sous-classe" ou de "classe-fille")
+
+class Animal2 {
+  constructor(nom) {
+    this.nom = nom;
+  }
+  crie() {
+    console.log(`${this.nom} fait du bruit.`);
+  }
+}
+
+class Chien2 extends Animal2 {
+  parle1() {
+    super.crie();
+    console.log(`${this.nom} aboie.`);
+  }
+}
+
+let c = new Chien2("David");
+console.log(c);
+c.parle1();
+
+// Si on déclare un constructeur dans une classe fille, on doit utiliser super() avant this.
+// On peut également étendre des classes plus traditionnelles basées sur des constructeurs fonctionnels:
+
+function Animal1(nom) {
+  this.nom = nom;
+}
+Animal1.prototype.crie = function () {
+  console.log(`${this.nom} fait du bruit.`);
+};
+
+class Chien1 extends Animal1 {
+  parle1() {
+    super.crie();
+    console.log(`${this.nom} aboie.`);
+  }
+}
+
+let c1 = new Chien1("Ida");
+console.log(c1);
+c1.parle1();
+// Ida fait du bruit.
+// Ida aboie.
+
+// En revanche, les classes ne permettent pas d'étendre des objets classiques non-constructibles. Si on souhaite créer un lien d'héritage en un objet d'une ckasse, on utilisera Objet.setPrototypeOf()
+
+const Animala = {
+  crie() {
+    console.log(`${this.nom} fait du bruit.`);
+  },
+};
+
+class Chat {
+  constructor(nom) {
+    this.nom = nom;
+  }
+  crie() {
+    super.crie();
+    console.log(`${this.nom} miaule.`);
+  }
+}
+Object.setPrototypeOf(Chat.prototype, Animala);
+
+let d = new Chat("Minou");
+d.crie();
+// Ida fait du bruit
+// Ida aboie.
+
+// Le symbole species
+// Lorsqu'on souhaite revoyer des objets Array avec une sous-classe MonArrau, on peut utiliser symbole species pour surchager le constructeur par défaut
+
+// Par exemple, si, lorsuqu'on utilise des méthodes comme map() qui renvoient le constructeur par défaut et qu'on veut qu'elles renvoient Array plutôt que MonArray, on utilisera Symbol.species
+// Par exemple:
+class MonArray extends Array {
+  // On surcharge species avec le constructeur Array du parent.
+  static get [Symbol.species]() {
+    return Array;
+  }
+}
+let a = new MonArray(1, 2, 3);
+let mapped = a.map((element) => element * element);
+
+console.log(mapped instanceof MonArray); // false
+console.log(mapped instanceof Array); // true
+
+// Utiliser "super" pour la classe parente
+// Le mot clé "super" est utilisé pour appeler les fonctions rattachées à un objet parent
+
+class Chatou {
+  constructor(nom) {
+    this.nom = nom;
+  }
+
+  miaule() {
+    console.log(`${this.nom} fait du bruit.`);
+  }
+}
+
+class Lion extends Chatou {
+  miaule() {
+    super.miaule();
+    console.log(`${this.nom} rugit.`);
+  }
+}
+
+const minou = new Lion("Iduk");
+minou.miaule();
+
+// Regader sur l'internet la classe Objet en JS pour voir les méthodes, exemples:*
+// entries, values, keys...
+
+// 31/03/2022
+
+// Tous les objets héritent d'une propriété "constructor" de leur proototype (à l'exception de ceux crées avec Objet.create(null))
+// Les objets crées sansconstructeur (c'est a dire avec des littéraux) auront le constructeur correspondant au type de littéral
+const o = {};
+o.constructeur === Object;
+const ax = [];
+ax.constructeur === Array;
+
+// Afficher le constructeur d'un objet
+// L'exemple ci dessous crée un constructeur "Arbre", et un bjet de ce type, monArbre. Le script affiche ensuite la propriété "constructor" de l'objet monArbre
+
+class Arbre {
+  nom;
+  constructor(nom) {
+    this.nom = nom;
+  }
+
+  get arbreNom() {
+    return this.nom;
+  }
+}
+
+const monArbre = new Arbre("Sequoia");
+console.log(`monArbre s'appelle ${monArbre.arbreNom}`);
+console.log(`monArbre.constructor vaut ${monArbre.constructor}`); //Affiche la propriété "constructor" de l'objet monArbre
+
+// Modifier le constructeur d'un objet
+
+// Dans l'exemple suivant, on illustre comment modifier la valeur d'un constructeur pour les objets génériques. Dans l'exemple suivant, seules ls valeurs true, "1" et "test" ne seront pas affectées car leurs constructeurs sont en lecture seule uniquement.
+// Cet exemple montre qu'il ne faut pas se reposer de façon aevugle sur la propriété constructor d'un objet
+
+function Type() {}
+
+const types = [
+  new Array(),
+  [],
+  new Boolean(),
+  true, // restera tel quel
+  new Date(),
+  new Error(),
+  new Function(),
+  function () {},
+  Math,
+  new Number(),
+  1, // restera tel quel
+  new Object(),
+  {},
+  new RegExp(),
+  /(?:)/,
+  new String(),
+  "test", // restera tel quel
+];
+
+// for (let type of types) {
+//   type.constructor = Type;
+//   type = [type.constructor, type instanceof Type, type.toString()];
+// }
+
+for (let i = 0; i < types.length; i++) {
+  types[i].constructor = Type;
+  console.log(
+    (types[i] = [
+      types[i].constructor,
+      types[i] instanceof Type,
+      types[i].toString(),
+    ])
+  );
+}
+
+// console.log(types.join("\n"));
+
+// Modifier le constructeur d'une fonction
+// A continuer mais je ne comprends pastout simplement.
 
 // Accesseurs et Mutateurs
 // Un accesseurs se définit avec un mot get
@@ -256,3 +508,4 @@ console.log(bassPlayer);
 // thrashMetal.bassist;
 bassPlayer.bassist = "Robert Trujillo";
 console.log(bassPlayer.bassist);
+

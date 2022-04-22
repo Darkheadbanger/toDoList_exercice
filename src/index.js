@@ -3,6 +3,10 @@ import "./asynchrone";
 import "./date";
 import "./objet";
 import "./poo";
+import "./prototype";
+import "./regularExpressions";
+import "./keys-values-entrues-etc";
+import "./classes";
 // On récupère le ul pour pouvoir afficheer dans la liste
 const ul = document.querySelector("ul");
 const form = document.querySelector("form");
@@ -99,7 +103,7 @@ if (document.readyState === "loading") {
         if (
           confirm("Est ce que vous êtes sûr de vouloir effacer cette tâches ?")
         ) {
-          deleteToDo(todo, index);
+          deleteToDo(index);
         } else {
           return;
         }
@@ -155,9 +159,7 @@ if (document.readyState === "loading") {
       saveButton.addEventListener("click", (event) => {
         event.stopPropagation();
         if (confirm("Êtes vous sur de vouloir modifier cette tâches ?")) {
-          editToDo(index, input);
-        } else {
-          return;
+          editToDo(index, todo, input);
         }
       });
       li.append(input, saveButton, cancelButton);
@@ -220,10 +222,18 @@ if (document.readyState === "loading") {
       displayTodo();
     };
 
-    const editToDo = (index, input) => {
-      const value = input.value;
-      todos[index].text = value;
-      todos[index].editMode = false;
+    const editToDo = (index, todo, input) => {
+      console.log(todo.text === input.value);
+      const InputValue = input.value;
+      const findTheSameText = (todo) => todo.text === InputValue;
+      const includesTodos = todos.findIndex(findTheSameText);
+      if (includesTodos - 1) {
+        console.log(todo.text);
+        todo.text = InputValue; // todo.text : Directement récuperer le paramètre itéré
+        todos[index].editMode = false; //todos[index], on récupère le tableau et on pointe vers l'index a chaque fois
+      } else {
+        alert("Vous ne pouvez pas modifier pour ajouter le même activiter!");
+      }
       dataSetToLocalStorage();
       displayTodo();
     };
