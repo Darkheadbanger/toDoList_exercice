@@ -7,6 +7,10 @@ import "./prototype";
 import "./regularExpressions";
 import "./keys-values-entrues-etc";
 import "./classes";
+import "./debugging";
+import "./gestionDErreurs";
+import "./exo";
+import "./canvas";
 // On récupère le ul pour pouvoir afficheer dans la liste
 const ul = document.querySelector("ul");
 const form = document.querySelector("form");
