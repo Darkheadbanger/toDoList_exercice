@@ -389,27 +389,125 @@ console.log(binarySearch4);
 // Exercice final! Boss final JS.
 // Il y aura que du JS
 // Client : Ce que je veux
+
 // Pouvoir la possibilité de créer un article avec en plus la quantité, les catégorie exemple fruits, légumes + la possibilité de chercher la date d'achat souhaité
 // Pendant la creation, il faut qu'il y a une possibilité de faire un lot avec le même date, il faut pouvoir rajouter le commentaires
 
-// Un tableau ou on peut voir tout mes articles, un tablaeu ou on peut supprimer et modifier
-// On veut pouvoir chercher un article en ârticulier dans le tableau (barre de recherches)
+// Un tableau ou on peut voir tout mes articles, un tableau ou on peut supprimer et modifier.
+// On veut pouvoir chercher un article en particulier dans le tableau (barre de recherches)
 // Trier par catégories
-// Quand je clique unn article, acceder a un page de l'article détaillé
-// Niveau design professionnel! Vendable! PROPRE! PARFAIT! SANS FAUTE!
+// Quand je clique un article, acceder a un page de l'article détaillé
+// Niveau design professionnel! Vendable! PROPRE! PARFAIT! SANS FAUTE
 
 // Demande du lead dev, dans le code obligation de passer par asnyc et await
 // Au niveau de scss, il faut des variables
-// Au niveau de JS, des classes, un ou deux pattern, la gestion d'erreursn de l'es 6 seuelement
+// Au niveau de JS, des classes, un ou deux pattern, la gestion d'erreurs de l'es-6 seuelement
+
+// 3 scenarions (users story) creation todo, suppression todo et consulation todo
+// Darkmode et lightmode
+
+// Regarder le cours de modele conceptuelle de données
+// Regarder le mind
+// Regarder le trello
 
 // Refaire la todolist sans regarder la solution
 // Bootstrap 5, HTML, JS, SCSS, Flex, Grid
 // Etape 1 creation mind
-// Etape 2 creation de MCD
-// Etape 3 creation de prototype via adobe XD
-// Etape 4 Creation d'un trello pour un gantt pour estimation de temps du projet
+// Etape 2 creation de MCD (je ne sais pas)
+// Etape 3 creation de prototype via adobe. (à la maison)
+// Etape 4 Creation d'un trello pour faire une estimation de temps du projet
 // Etape 5 Mise en place de template
 // Etape 6 mise en place de CSS et du JS
 // Etape 7 Présentation avec 5 slide plus 20 minutes
 
 // Presentation dans deux semaines le 15 mai
+
+// Article, quantité, catégorie (fruits, legumes etc), la date, commentaire
+
+// 08/05/2022
+
+// La fonction substract prend 2 arguments et retourne la soustraction du premier par le deuxième
+// Exemple d'entrée
+// (42, 24)
+// Exemple de sortie
+// 18
+
+const soustraction = (a, b) => {
+  return a - b;
+};
+
+console.log(soustraction(666, 333));
+
+// Créer une variable nombre, et on assigne une valeur 42
+
+const nombre = 42;
+console.log(nombre);
+
+// Déclarer une constante C et assigner lui un tableau [1,2,3]
+
+const c = [1, 2, 3];
+
+// La fonction substract prend 2 arguments et retourne la soustraction du premier par le deuxième
+// Exemple d'entrée
+// (42, 24)
+// Exemple de sortie
+// 18
+
+const substraction = (a, b) => {
+  return a - b;
+};
+
+console.log(substraction(42, 24));
+
+// Énoncé
+// Dans cet exercice vous allez devoir utiliser l'instruction switch pour itérer sur la valeur de la variable note et modifier en conséquence la valeur de la variable remarque.
+
+// List des objectifs à remplir
+//  Vous devez déclarer une variable remarque et une instruction switch qui va itérer sur la valeur de note
+//  - pour la valeur 5, remarque doit être égal à 'Excellent'
+//  - pour la valeur 4, remarque doit être égal à 'Très bien'
+//  - pour la valeur 3, remarque doit être égal à 'Bien'
+//  - pour la valeur 2, remarque doit être égal à 'Moyen'
+//  - pour les valeurs 1 et 0, remarque doit être égal à 'Médiocre'
+//  Dans tous les autres cas, remarque doit avoir la valeur 'La note doit être un nombre compris entre 0 et 5'
+
+// Semaine prochaine finir cet exo et trouver une autre exo sur switch
+
+const testFn = (note) => {
+  // Déclarez en dessous :
+  switch (note) {
+    case 5:
+      remarque = "Excelent";
+      break;
+    case 4:
+      remarque = "Très bien";
+      break;
+    case 3:
+      remarque = "Bien";
+      break;
+    case 2:
+      remarque = "Moyen";
+      break;
+    case 1:
+      remarque = "Médiocre";
+      break;
+    case 0:
+      remarque = "Médiocre";
+      break;
+    default:
+      console.log(`Désolé, vous venez de toucher le fond.`);
+  }
+
+  // Ne touchez pas au return.
+  return remarque;
+};
+
+console.log(testFn(3));
+
+// Revoir les classes en JS
+// Revoir l'héritage
+// Revoir les constructeur de JS
+
+// Mixins de JS
+
+// Exo: créer un calculateur
