@@ -11,6 +11,17 @@ import "./gestionDErreurs";
 import "./exo";
 import "./canvas";
 import "./classes";
+// Exo Todo et BONNNNNNNEEEE CHHAAAAANNNCEEEEEEEEEEEEEE!!!!!!!!!!!!!!
+// 1. d'empecher l'ajout de todo vide (fait)
+// 2. LocalStorage et que ca reste (fait)
+// 3. d'empecher d'ajouter le même tache (On verra avec prof si c'est bien)
+// 3. Mettre une majuscule a la premiere lettre du texte de la todo (fait)
+// 4. Barré le text de la todo lorsqu'elle est terminer (fait, mais  a un truc que je ne comprends pas)
+// 5. Ajouter un curseur pointer sur les todos <fait>
+// 6. Ajouter un effet hover sur les todos pour mieux voir sur laquelle l'utilisateur va cliquer (fait)
+// 7. Créer des classes pour colorer les boutons (fait)
+// 8. a voir : Lors de l'édition, ajoutez un écouteur pour sauvegarder avec la touche entrée si le champ est focus ou annuler avec la touche escape. (fait)
+// 9. a voir : Rendre l'édition possible sur un double clic. (fait)
 // On récupère le ul pour pouvoir afficheer dans la liste
 const ul = document.querySelector("ul");
 const form = document.querySelector("form");
@@ -77,7 +88,7 @@ if (document.readyState === "loading") {
       true
     );
 
-    // On crée une fonction displayTodo pour afficher le do
+    // On crée une fonction displayTodo pour afficher le todo
     const displayTodo = () => {
       // On recuprer ce tableau, et on affiche sur le HTML
       const todosNode = todos.map((todo, index) => {
@@ -99,24 +110,23 @@ if (document.readyState === "loading") {
       const deleteButton = document.createElement("button");
       deleteButton.innerText = "Supprimer";
       deleteButton.classList.add("danger");
-      const editButton = document.createElement("button");
-      editButton.innerText = "Modification";
-      editButton.classList.add("modification");
+      const modificationButton = document.createElement("button");
+      modificationButton.innerText = "Modification";
+      modificationButton.classList.add("modification");
       deleteButton.addEventListener("click", (event) => {
         event.stopPropagation();
         if (
           confirm("Est ce que vous êtes sûr de vouloir effacer cette tâches ?")
         ) {
           deleteToDo(index);
-        } else {
-          return;
         }
       });
 
       // Cette fonctionne sert pour barré les tâches effectués
       finishedTodo(todo, p);
 
-      editButton.addEventListener("click", (event) => {
+      // Modification button
+      modificationButton.addEventListener("click", (event) => {
         event.stopPropagation();
         toggleEditMode(index);
       });
@@ -133,7 +143,7 @@ if (document.readyState === "loading") {
       li.style.cursor = "pointer";
 
       // console.log((p.style.textDecoration = "line-through"));
-      li.append(p, deleteButton, editButton);
+      li.append(p, deleteButton, modificationButton);
 
       // Clicked dans la balise li
       li.addEventListener("click", (event) => {
@@ -231,12 +241,15 @@ if (document.readyState === "loading") {
       const InputValue = input.value;
       const findTheSameText = (todo) => todo.text === InputValue;
       const includesTodos = todos.findIndex(findTheSameText);
+      if (InputValue === "") {
+        return alert("Veuillez mettre un text s'il vous plait!");
+      }
       if (includesTodos - 1) {
         console.log(todo.text);
         todo.text = InputValue; // todo.text : Directement récuperer le paramètre itéré
         todos[index].editMode = false; //todos[index], on récupère le tableau et on pointe vers l'index a chaque fois
       } else {
-        alert("Vous ne pouvez pas modifier pour ajouter le même activiter!");
+        return alert("Vous ne pouvez pas modifier pour ajouter le même activiter!");
       }
       dataSetToLocalStorage();
       displayTodo();
@@ -264,18 +277,6 @@ if (document.readyState === "loading") {
     // Il faut toujours mettre le localStorage en global (pas dans une fonction) pour le faire fonctionner
     retrieveLocalStorage();
     escapeFromInput();
-
-    // Exo Todo et BONNNNNNNEEEE CHHAAAAANNNCEEEEEEEEEEEEEE!!!!!!!!!!!!!!
-    // 1. d'empecher l'ajout de todo vide (fait)
-    // 2. LocalStorage et que ca reste (fait)
-    // 3. d'empecher d'ajouter le même tache (On verra avec prof si c'est bien)
-    // 3. Mettre une majuscule a la premiere lettre du texte de la todo (fait)
-    // 4. Barré le text de la todo lorsqu'elle est terminer (fait, mais  a un truc que je ne comprends pas)
-    // 5. Ajouter un curseur pointer sur les todos <fait>
-    // 6. Ajouter un effet hover sur les todos pour mieux voir sur laquelle l'utilisateur va cliquer (fait)
-    // 7. Créer des classes pour colorer les boutons (fait)
-    // 8. a voir : Lors de l'édition, ajoutez un écouteur pour sauvegarder avec la touche entrée si le champ est focus ou annuler avec la touche escape.
-    // 9. a voir : Rendre l'édition possible sur un double clic.
   };
   pageReady();
 }
