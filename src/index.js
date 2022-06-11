@@ -11,6 +11,8 @@ import "./gestionDErreurs";
 import "./exo";
 import "./canvas";
 import "./classes";
+import "./exo-youtube";
+
 // Exo Todo et BONNNNNNNEEEE CHHAAAAANNNCEEEEEEEEEEEEEE!!!!!!!!!!!!!!
 // 1. d'empecher l'ajout de todo vide (fait)
 // 2. LocalStorage et que ca reste (fait)
@@ -61,15 +63,6 @@ if (document.readyState === "loading") {
       });
     };
 
-    const escapeFromInput = () => {
-      input.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-          input.blur();
-        }
-        console.info(e.key);
-      });
-    };
-
     form.addEventListener(
       "focus",
       (event) => {
@@ -100,9 +93,12 @@ if (document.readyState === "loading") {
         }
       });
       ul.innerHTML = "";
+      console.log(todosNode);
+      console.log(...todosNode);
       ul.append(...todosNode);
     };
 
+    // span
     // On crée une fonction qui permet de créer les élements todo
     const createToDoElement = (todo, index) => {
       const li = document.createElement("li");
@@ -178,8 +174,8 @@ if (document.readyState === "loading") {
       });
       li.append(input, saveButton, cancelButton);
       return li;
-    };
-
+    }; 
+    // push
     const avoidDuplicateToDo = (text, todos) => {
       // Demander pourquoi si on met entrecote {} ne fonctionne pas
       const findTheSameText = (todo) => todo.text === text;
@@ -207,7 +203,7 @@ if (document.readyState === "loading") {
       dataSetToLocalStorage();
       displayTodo();
     };
-
+    // push
     const deleteToDo = (index) => {
       todos.splice(index, 1);
       deleteDataFromLocalStorage(index);
@@ -249,7 +245,9 @@ if (document.readyState === "loading") {
         todo.text = InputValue; // todo.text : Directement récuperer le paramètre itéré
         todos[index].editMode = false; //todos[index], on récupère le tableau et on pointe vers l'index a chaque fois
       } else {
-        return alert("Vous ne pouvez pas modifier pour ajouter le même activiter!");
+        return alert(
+          "Vous ne pouvez pas modifier pour ajouter le même activiter!"
+        );
       }
       dataSetToLocalStorage();
       displayTodo();
@@ -276,7 +274,6 @@ if (document.readyState === "loading") {
     displayTodo();
     // Il faut toujours mettre le localStorage en global (pas dans une fonction) pour le faire fonctionner
     retrieveLocalStorage();
-    escapeFromInput();
   };
   pageReady();
 }
